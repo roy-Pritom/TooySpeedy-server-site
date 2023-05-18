@@ -34,7 +34,22 @@ async function run() {
     app.post('/postToy',async(req,res)=>{
         const carData=req.body;
         // console.log(carData);
+        if(!carData)
+        {
+            return res.status(404).send({message:"carData not Found"})
+        }
         const result=await carsCollection.insertOne(carData);
+        res.send(result);
+    })
+
+    app.get('/allToys',async(req,res)=>{
+        const result= await carsCollection.find({}).toArray();
+        res.send(result)
+    })
+
+    app.get('/myToys/:email',async(req,res)=>{
+        console.log(req.params.email);
+        const result=await carsCollection.find({email:req.params.email}).toArray();
         res.send(result);
     })
 

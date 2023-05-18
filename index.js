@@ -55,6 +55,23 @@ async function run() {
     })
 
 
+    app.patch('/myToys/:id',async(req,res)=>{
+        const user=req.body;
+        const id=req.params.id;
+        console.log(id);
+        // const filter={_id:new ObjectId(id)}
+        // const options={upsert:true}
+        // const updateUser={
+        //     $set:{
+        //          name:user.name,
+        //          email:user.email
+        //     }
+        // }
+        // const result=await carsCollection.updateOne(filter,updateUser,options)
+        // res.send(result);
+    })
+
+
     app.delete('/myToys/:id',async(req,res)=>{
         const id=req.params.id;
         // console.log(id);

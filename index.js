@@ -51,7 +51,7 @@ async function run() {
 
     app.get('/toySearch/:text',async(req,res)=>{
       const text=req.params.text;
-      console.log(text);
+      // console.log(text);
       const result=await carsCollection.find({
         $or:[
           {

@@ -29,7 +29,17 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
+    const carsGallery=client.db('carGalleryDb').collection('cars')
+    // gallery 
+    app.get('/carGallery',async(req,res)=>{
+        const result=await carsGallery.find().toArray();
+        res.send(result);
+    })
 
+
+
+
+    // toys
     const carsCollection=client.db('toyCarDB').collection('toyCar')
 
     app.post('/postToy',async(req,res)=>{
@@ -48,8 +58,21 @@ async function run() {
         res.send(result)
     })
 
+    app.get('/toys/:id',async(req,res)=>{
+      const id=req.params.id;
+       const query={_id:new ObjectId(id)}
+       const result=await carsCollection.findOne(query)
+       res.send(result)
+    })
+
+    app.get('/allToys/:text',async(req,res)=>{
+        // const text=req.body.text;
+        const result=await carsCollection.find({subCategory:req.params.text}).toArray();
+        res.send(result)
+    })
+
     app.get('/myToys/:email',async(req,res)=>{
-        console.log(req.params.email);
+        // console.log(req.params.email);
         const result=await carsCollection.find({email:req.params.email}).toArray();
         res.send(result);
     })
@@ -58,7 +81,7 @@ async function run() {
     app.patch('/myToys/:id',async(req,res)=>{
         const user=req.body;
         const id=req.params.id;
-        console.log(id);
+        // console.log(id);
         // const filter={_id:new ObjectId(id)}
         // const options={upsert:true}
         // const updateUser={

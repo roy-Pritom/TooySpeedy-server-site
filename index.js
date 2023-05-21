@@ -75,7 +75,7 @@ async function run() {
     })
 
     app.get('/allToys', async (req, res) => {
-      const result = await carsCollection.find({}).toArray();
+      const result = await carsCollection.find({}).limit(20).toArray();
       res.send(result)
     })
 
@@ -92,12 +92,7 @@ async function run() {
       res.send(result)
     })
 
-    // app.get('/toySearch/:searchText', async (req, res) => {
-    //   console.log(req.params.searchText);
-    //   const result = await carsCollection.find({ toyName: req.params.searchText }).toArray();
-    //   res.send(result)
 
-    // })
 
     app.get('/myToys/:email', async (req, res) => {
       // console.log(req.params.email);
